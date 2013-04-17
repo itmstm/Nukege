@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+       <color name="ChingeColorWhite">#FFFFFFFF</color>
+       <color name="ChingeColorBlack">#FF000000</color>
+       <color name="DebugLineColor">#FFA0A0A0</color>
+       <color name="BackGroundColorWhite">#FFFFFFFF</color>
+       <color name="BackGroundColorBlack">#FF000000</color>
+       <color name="DebugBoxColor">#FF0000FF</color>
+       <color name="DebugTouchedBoxColor">#FFFF0000</color>
+       <color name="DebugBoxInMoveColor">#FFFF00FF</color>
+       <color name="DebugMouthColor">#FFFF0000</color>
+</resources>
