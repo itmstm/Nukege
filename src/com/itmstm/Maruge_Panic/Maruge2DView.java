@@ -48,8 +48,7 @@ public class Maruge2DView extends View implements OnTouchListener  {
 	private static final long MAN_UPDATE_DELAY = 500;		// 500 ms
 	private static final long VACUUM_UPDATE_DELAY = 100;	// 100 ms
 	protected static final long MARUGE_UPDATE_DELAY = 16;   //  16 ms
-	private static final float THROAT_X = 720 - 30;
-	private static final float THROAT_Y = 1180 - 60;
+
 	private static final float SPIT_DELTA_X = 1.0005f;
 	private static final float SPIT_DEFAULT_DX = 20.f;
 	
@@ -85,6 +84,10 @@ public class Maruge2DView extends View implements OnTouchListener  {
 	private float mSpitDx[] = new float[NUM_MARUGE];
 	private float mSpitVar;
 	private boolean mHideMan = false;
+	private int mHeight;
+	private int mWidth;
+	private float mThroat_Y;
+	private float mThroat_X;
 	
 	protected void makeVacuumAction() {
 		
@@ -97,7 +100,7 @@ public class Maruge2DView extends View implements OnTouchListener  {
 			// TouchedPointをまず喉の奥に移動する
 			
 			for( int i=0; i<mMaruge.length; i++ ) {
-				mMaruge[i].getTouchedPoint().set(THROAT_X, THROAT_Y );
+				mMaruge[i].getTouchedPoint().set(mThroat_X, mThroat_Y );
 				mMaruge[i].calculateOtherChingePointPosition( 0 );
 				
 		    	// PointのConvergeするポイントを設定（TouchedPoint)
@@ -170,7 +173,7 @@ public class Maruge2DView extends View implements OnTouchListener  {
 					
 					// Log.d( TAG, "a="+a+"  (dx, dy)=(" + mSpitDx[i] + ", " + dy + ")");
 					
-					mMaruge[i].getFirstPoint().set( THROAT_X + mSpitDx[i], THROAT_Y + dy);
+					mMaruge[i].getFirstPoint().set( mThroat_X + mSpitDx[i], mThroat_Y + dy);
 					mMaruge[i].calculateOtherChingePointPosition( 0 );
 				}
 			}
@@ -262,11 +265,17 @@ public class Maruge2DView extends View implements OnTouchListener  {
 	}
 
 	// Constructor
-	public Maruge2DView(MarugeActivity context) {
+	public Maruge2DView(MarugeActivity context, int w, int h) {
 		super( context );
 		
 		//Log.d(TAG,  "Ching2DView constructor!");
 		
+		// widthとheightを設定
+		mWidth = w;
+		mHeight = h;
+		mThroat_X  = (float) mWidth - 30;
+		mThroat_Y = (float) mHeight - 60;
+
 		// enable this view to receive touch event
 		this.setFocusable(true);
 		this.setFocusableInTouchMode(true);
@@ -287,7 +296,7 @@ public class Maruge2DView extends View implements OnTouchListener  {
 		
 		mMaruge = new Maruge[ NUM_MARUGE ];
 		for( int i=0; i<NUM_MARUGE; i++ ) {
-			mMaruge[i] = new Maruge( mRes,  mDebug, mRNG, 720, 1180 );		// TODO: try avoid hard-coded width & height
+			mMaruge[i] = new Maruge( mRes,  mDebug, mRNG, mWidth, mHeight );		// TODO: try avoid hard-coded width & height
 		}
 		
         // for touch event debug
@@ -312,10 +321,10 @@ public class Maruge2DView extends View implements OnTouchListener  {
     	mVacuumMode = VM.VM_NO_VACUUM;
     	
     	// Man's mouse position
-    	mMouthRect.set( 720 - 80, 1180 - 100, 720 - 40, 1180 - 30 );
+    	mMouthRect.set( mWidth - 80, mHeight - 100, mWidth - 40, mHeight - 30 );
     	
     	// Rect for area where Man is drawn
-    	mManDstRect.set( 720 - 100, 1180 - 300, 720, 1180 ); 
+    	mManDstRect.set( mWidth - 100, mHeight - 300, mWidth, mHeight ); 
     	
     	// Timer for Man Waiting
     	mUpdateManImageTask = new Runnable() {

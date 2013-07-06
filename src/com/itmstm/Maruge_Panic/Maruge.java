@@ -89,8 +89,8 @@ public class Maruge {
 		
 		mTouchedPointIndex = NUM_POINTS - 1;
 		for( int i=0; i<NUM_INITIAL_ITERATION; i++ ) {
-	    	initial_w = (float) rng.nextInt( 720 );
-	    	initial_h = (float) rng.nextInt( 1280 );
+	    	initial_w = (float) rng.nextInt( w );
+	    	initial_h = (float) rng.nextInt( h );
 	    	
 			mMotionVector.set(
 					mPts[mTouchedPointIndex].x, mPts[mTouchedPointIndex].y, 

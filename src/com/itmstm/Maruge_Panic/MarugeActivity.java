@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 public class MarugeActivity extends Activity {
@@ -24,8 +26,13 @@ public class MarugeActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // get display size
+        WindowManager wm = (WindowManager) getSystemService( WINDOW_SERVICE );
+        Display disp = wm.getDefaultDisplay();
+        Log.d(TAG, "Width = " + disp.getWidth() + ", Height = " + disp.getHeight());
+
 		// main view 
-        mChingeView = new Maruge2DView( this );
+        mChingeView = new Maruge2DView( this, disp.getWidth(), disp.getHeight() );
         mChingeView.setLayoutParams( mkParams( FP, FP ));
         
         setContentView( mChingeView );
