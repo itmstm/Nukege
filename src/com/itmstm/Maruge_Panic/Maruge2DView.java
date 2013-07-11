@@ -211,68 +211,17 @@ public class Maruge2DView extends View implements OnTouchListener  {
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
 		
+		initMarugeView(w, h);
+		
 		Log.d( TAG, "OnSizeChanged("+w+","+h+","+oldw+","+oldh+")!");
 	}
 
-	@Override
-	protected void onDraw( Canvas canvas ) {
-		// begin drawing
-	
-		if( mDebug ) {
-	    	mDebugLine.drawGrid( canvas );
-	    	canvas.drawRect(mMouthRect, mDebugMouthPaint );
-		}
-		
-		switch( mBG ) {
-		case BG_WHITE:
-			mMarugePaint.setColor( mRes.getColor( R.color.ChingeColorBlack ));
-			setBackgroundResource( R.color.BackGroundColorWhite );
-			break;
-		case BG_BLACK:
-			mMarugePaint.setColor( mRes.getColor( R.color.ChingeColorWhite ));
-			setBackgroundResource( R.color.BackGroundColorBlack );
-			break;
-		}
-		
-		// Draw maruge
-		for( int i=0; i<mMaruge.length; i++ ) {
-			//mMarugePaint.setStrokeWidth((float) i+1.f );
-	    	mMaruge[i].drawMaruge(canvas, mMarugePaint );
-		}
-		
-		if( ! mHideMan ) {
-			// 男によるVacuumアクションに入るかどうか
-			if( (mVacuumMode == VM.VM_NO_VACUUM ) && MarugeAtMouth() ) {
-				
-				//Log.d( TAG, "Maruge touched" );
-				// Vacuumアクションの開始コード
-				mVacuumMode = VM.VM_INITIAL_VACUUM;
-		    	mVacuumHandler.postDelayed( mVacuumTask, VACUUM_UPDATE_DELAY );
-		    	
-		    	// 男の顔をVacuumにする
-		    	mManBitmap = mManVacuumBitmap;
-		    	
-		    	// disable Man-Waiting thread
-		    	mManHandler.removeCallbacks(mUpdateManImageTask);
-		    	
-		    	// disable motion event
-				this.setOnTouchListener(null);
-			}
-			
-			// Draw Man
-			canvas.drawBitmap(mManBitmap, null, mManDstRect, null );
-		}
-	}
-
-	// Constructor
-	public Maruge2DView(MarugeActivity context, int w, int h) {
-		super( context );
-		
-		//Log.d(TAG,  "Ching2DView constructor!");
-		
+	private void initMarugeView(int view_width, int view_height) 
+	{
+		// TODO Auto-generated method stub
 		// widthとheightを設定
-		mWidth = w;
-		mHeight = h;
+		mWidth = view_width;
+		mHeight = view_height;
 		mThroat_X  = (float) mWidth - 30;
 		mThroat_Y = (float) mHeight - 60;
 
@@ -373,7 +322,66 @@ public class Maruge2DView extends View implements OnTouchListener  {
 		    	mManHandler.postDelayed(mMarugePanicTask, MARUGE_UPDATE_DELAY);
     		}
     	};
-    	mMarugePanicHandler.postDelayed(mMarugePanicTask, MARUGE_UPDATE_DELAY);
+    	mMarugePanicHandler.postDelayed(mMarugePanicTask, MARUGE_UPDATE_DELAY);	
+	}
+
+	@Override
+	protected void onDraw( Canvas canvas ) {
+		// begin drawing
+	
+		if( mDebug ) {
+	    	mDebugLine.drawGrid( canvas );
+	    	canvas.drawRect(mMouthRect, mDebugMouthPaint );
+		}
+		
+		switch( mBG ) {
+		case BG_WHITE:
+			mMarugePaint.setColor( mRes.getColor( R.color.ChingeColorBlack ));
+			setBackgroundResource( R.color.BackGroundColorWhite );
+			break;
+		case BG_BLACK:
+			mMarugePaint.setColor( mRes.getColor( R.color.ChingeColorWhite ));
+			setBackgroundResource( R.color.BackGroundColorBlack );
+			break;
+		}
+		
+		// Draw maruge
+		for( int i=0; i<mMaruge.length; i++ ) {
+			//mMarugePaint.setStrokeWidth((float) i+1.f );
+	    	mMaruge[i].drawMaruge(canvas, mMarugePaint );
+		}
+		
+		if( ! mHideMan ) {
+			// 男によるVacuumアクションに入るかどうか
+			if( (mVacuumMode == VM.VM_NO_VACUUM ) && MarugeAtMouth() ) {
+				
+				//Log.d( TAG, "Maruge touched" );
+				// Vacuumアクションの開始コード
+				mVacuumMode = VM.VM_INITIAL_VACUUM;
+		    	mVacuumHandler.postDelayed( mVacuumTask, VACUUM_UPDATE_DELAY );
+		    	
+		    	// 男の顔をVacuumにする
+		    	mManBitmap = mManVacuumBitmap;
+		    	
+		    	// disable Man-Waiting thread
+		    	mManHandler.removeCallbacks(mUpdateManImageTask);
+		    	
+		    	// disable motion event
+				this.setOnTouchListener(null);
+			}
+			
+			// Draw Man
+			canvas.drawBitmap(mManBitmap, null, mManDstRect, null );
+		}
+	}
+
+	// Constructor
+	public Maruge2DView(MarugeActivity context, int w, int h) {
+		super( context );
+		
+		//Log.d(TAG,  "Ching2DView constructor!");
+		
+		
     }	
 	
 	public void setDebug(boolean mDebug) {
@@ -406,6 +414,7 @@ public class Maruge2DView extends View implements OnTouchListener  {
 		}
 		invalidate();
 	}
+
 
 	public boolean onMenuItemClick(MenuItem item) {
 		
