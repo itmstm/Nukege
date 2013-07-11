@@ -376,12 +376,8 @@ public class Maruge2DView extends View implements OnTouchListener  {
 	}
 
 	// Constructor
-	public Maruge2DView(MarugeActivity context, int w, int h) {
+	public Maruge2DView(MarugeActivity context ) {
 		super( context );
-		
-		//Log.d(TAG,  "Ching2DView constructor!");
-		
-		
     }	
 	
 	public void setDebug(boolean mDebug) {

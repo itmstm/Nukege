@@ -26,13 +26,8 @@ public class MarugeActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // get display size
-        WindowManager wm = (WindowManager) getSystemService( WINDOW_SERVICE );
-        Display disp = wm.getDefaultDisplay();
-        Log.d(TAG, "Width = " + disp.getWidth() + ", Height = " + disp.getHeight());
-
 		// main view 
-        mChingeView = new Maruge2DView( this, disp.getWidth(), disp.getHeight() );
+        mChingeView = new Maruge2DView( this );
         mChingeView.setLayoutParams( mkParams( FP, FP ));
         
         setContentView( mChingeView );
