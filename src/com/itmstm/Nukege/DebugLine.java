@@ -1,10 +1,11 @@
-package com.itmstm.Maruge_Panic;
+package com.itmstm.Nukege;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
-import com.itmstm.Maruge_Panic.R;
+
+import com.itmstm.Nukege.R;
 
 public class DebugLine {
 

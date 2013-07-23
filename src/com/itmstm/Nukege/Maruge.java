@@ -1,8 +1,8 @@
-package com.itmstm.Maruge_Panic;
+package com.itmstm.Nukege;
 
 import java.util.Random;
 
-import com.itmstm.Maruge_Panic.R;
+import com.itmstm.Nukege.R;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 public class Maruge {
-	private static final int NUM_POINTS = 50;  // 毛をつくる点の数
+	private static final int NUM_POINTS = 100;  // 毛をつくる点の数
 	private static final float DISTANCE = 8.f; // 点と点の距離
 	
 	private static final String TAG = "Maruge";

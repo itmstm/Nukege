@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ちんげんパニック</string>
+    <string name="app_name">まさとのぬけげ</string>
     <string name="menu_toggle_debug">デバッグ機能のon/off</string>
     <string name="menu_set_yutaka">豊か</string>
     <string name="menu_set_masa">俺</string>
     <string name="menu_set_bg_white">背景を白くする</string>
     <string name="menu_set_bg_black">背景を黒くする</string>
-    <string name="MarugeVersion">0.2</string>
+    <string name="MarugeVersion">0.1</string>
     <string name="menu_hide_man">男の表示/非表示</string>
 
 </resources>

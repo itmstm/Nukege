@@ -1,9 +1,9 @@
-package com.itmstm.Maruge_Panic;
+package com.itmstm.Nukege;
 
 import java.util.Random;
 import java.util.Date;
 
-import com.itmstm.Maruge_Panic.R;
+import com.itmstm.Nukege.R;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -259,76 +259,16 @@ public class Maruge2DView extends View implements OnTouchListener  {
     	// PaintClass for Mouth (debug)
 		mDebugMouthPaint.setColor( mRes.getColor( R.color.DebugMouthColor ));
     	mDebugMouthPaint.setStrokeWidth( 1 );	 
-    	
-    	// Bitmaps for man
-    	mManTaiki1Bitmap = BitmapFactory.decodeResource(mRes, R.drawable.man_taiki1);
-    	mManTaiki2Bitmap = BitmapFactory.decodeResource(mRes, R.drawable.man_taiki2);
-    	mManVacuumBitmap = BitmapFactory.decodeResource(mRes, R.drawable.man_vacuum);
-    	mManSpitBitmap = BitmapFactory.decodeResource(mRes, R.drawable.man_spit);
-    	
-    	mManBitmap = mManTaiki1Bitmap;
-    	mVacuumMode = VM.VM_NO_VACUUM;
-    	
-    	// Man's mouse position
-    	mMouthRect.set( mWidth - 80, mHeight - 100, mWidth - 40, mHeight - 30 );
-    	
-    	// Rect for area where Man is drawn
-    	mManDstRect.set( mWidth - 100, mHeight - 300, mWidth, mHeight ); 
-    	
-    	// Timer for Man Waiting
-    	mUpdateManImageTask = new Runnable() {
-			public void run() {
-				//Log.d( TAG, "UpdateManImage Task" );
-				
-				if( mManBitmap == mManTaiki1Bitmap ) 
-					mManBitmap = mManTaiki2Bitmap;
-				else
-					mManBitmap = mManTaiki1Bitmap;
-				
-				invalidate();
-				
-    			mManHandler.removeCallbacks( mUpdateManImageTask );
-		    	mManHandler.postDelayed(mUpdateManImageTask, MAN_UPDATE_DELAY);
-    		}
-    	};
-    	mManHandler.postDelayed(mUpdateManImageTask, MAN_UPDATE_DELAY);
-    	
-    	
-    	// Thread for vacuum animation
-    	mVacuumTask = new Runnable() {
-
-			public void run() {
-				//Log.d( TAG, "Vacuum Task (Frame): " + mVacuumFrameCount );
-				makeVacuumAction();
-				mVacuumFrameCount++;
-				invalidate();
-				
-			}
-    	};
-    	
-    	// Thread for animating maruge
-    	mMarugePanicTask = new Runnable() {
-    		
-    		public void run() {
-    			
-    			// update mMaruge position
-    			for( int i=0; i<NUM_MARUGE; i++ ) {
-    				mMaruge[i].randomWalk(mRNG);
-    			}
-    			
-    			invalidate();
-    			
-    			mManHandler.removeCallbacks( mMarugePanicTask );
-		    	mManHandler.postDelayed(mMarugePanicTask, MARUGE_UPDATE_DELAY);
-    		}
-    	};
-    	mMarugePanicHandler.postDelayed(mMarugePanicTask, MARUGE_UPDATE_DELAY);	
 	}
 
 	@Override
 	protected void onDraw( Canvas canvas ) {
 		// begin drawing
 	
+		mMarugePaint.setColor( mRes.getColor( R.color.ChingeColorBlack ));
+		setBackgroundResource( R.color.BackGroundColorWhite );
+
+		/*
 		if( mDebug ) {
 	    	mDebugLine.drawGrid( canvas );
 	    	canvas.drawRect(mMouthRect, mDebugMouthPaint );
@@ -344,12 +284,15 @@ public class Maruge2DView extends View implements OnTouchListener  {
 			setBackgroundResource( R.color.BackGroundColorBlack );
 			break;
 		}
+		*/
 		
 		// Draw maruge
 		for( int i=0; i<mMaruge.length; i++ ) {
 			//mMarugePaint.setStrokeWidth((float) i+1.f );
 	    	mMaruge[i].drawMaruge(canvas, mMarugePaint );
 		}
+		
+		/*
 		
 		if( ! mHideMan ) {
 			// 男によるVacuumアクションに入るかどうか
@@ -373,6 +316,8 @@ public class Maruge2DView extends View implements OnTouchListener  {
 			// Draw Man
 			canvas.drawBitmap(mManBitmap, null, mManDstRect, null );
 		}
+		*/
+
 	}
 
 	// Constructor
@@ -414,6 +359,10 @@ public class Maruge2DView extends View implements OnTouchListener  {
 
 	public boolean onMenuItemClick(MenuItem item) {
 		
+		// ぬけげではメニューは表示しない
+		return true;
+		
+		/*
 		switch( item.getItemId()) {
 		case MENU_TOGGLE_DEBUG:
 			this.toggleDebug();
@@ -429,13 +378,17 @@ public class Maruge2DView extends View implements OnTouchListener  {
 		}
 		invalidate();
 		return false;
+		*/
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
+		// ぬけげではメニューは作らない
+		/*
 		menu.add( 0, MENU_TOGGLE_DEBUG, Menu.NONE, R.string.menu_toggle_debug).setIcon( R.drawable.ic_launcher);
 		menu.add( 0, MENU_SET_BG_WHITE, Menu.NONE, R.string.menu_set_bg_white);
 		menu.add( 0, MENU_SET_BG_BLACK, Menu.NONE, R.string.menu_set_bg_black);
 		menu.add( 0, MENU_HIDE_MAN, 	Menu.NONE, R.string.menu_hide_man);
+		*/
 		return true;
 	}
 

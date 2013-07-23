@@ -1,4 +1,4 @@
-package com.itmstm.Maruge_Panic;
+package com.itmstm.Nukege;
 
 import android.util.Log;
 import android.view.MotionEvent;
